@@ -118,7 +118,7 @@ describe('ZpmHub Signup Page Tests', () => {
     // cy.get('#password').invoke('val').should('eq', '12345678') 
     cy.get('#companyShortName').click({force: true})
     cy.get('#password').should('have.class', 'ng-invalid')
-    cy.get('#mat-mdc-error-13')
+    cy.get('#mat-mdc-error-6')
       .should('be.visible')
       .and('contain', 'Password should not contain spaces')
   })
@@ -136,7 +136,7 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#password').type('12345')
     cy.get('#companyShortName').click({force: true})
     cy.get('#password').should('have.class', 'ng-invalid')
-    cy.get('#mat-mdc-error-4')
+    cy.get('#mat-mdc-error-5')
       .should('be.visible')
       .and('contain', ' Make sure it\'s no more than 15 characters AND at least 8 characters.')
   })
@@ -145,7 +145,7 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#password').type('ThisIsALongPassword')
     cy.get('#companyShortName').click({force: true})
     cy.get('#password').should('have.class', 'ng-invalid')
-    cy.get('#mat-mdc-error-5')
+    cy.get('#mat-mdc-error-6')
       .should('be.visible')
       .and('contain', ' Make sure it\'s no more than 15 characters AND at least 8 characters.')
   })
@@ -291,7 +291,7 @@ describe('ZpmHub Signup Page Tests', () => {
     const fullName = 'Jack Black'
     const email = 'test2@example.com'
     const companyFullName = 'Apple Inc.'
-    const companyShortName = 'Kras&Co'
+    const companyShortName = 'Kras'
     const password = 'password'
 
     cy.get('#name').type(fullName)
