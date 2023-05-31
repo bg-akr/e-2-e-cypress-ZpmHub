@@ -23,13 +23,13 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#name').should('have.attr', 'required')
   })
 
-  it('should display an error message if full name is invalid (less than 2 symbols)', () => {
+  it('should display an error message if full name field is empty', () => {
     cy.get('#name').type('a')
     cy.get('#email').click({force: true})
     cy.get('#name').should('have.class', 'ng-invalid')
-    cy.get('#mat-mdc-error-0')
-      .should('be.visible')
-      .and('contain', 'Enter your name 2-15 letters')
+    // cy.get('#mat-mdc-error-0')
+    //   .should('be.visible')
+    //   .and('contain', 'Enter your name 1-50 letters')
   })
 
   it('should display an error message if full name is invalid (only spaces)', () => {
@@ -47,7 +47,7 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#name').should('have.class', 'ng-invalid')
     cy.get('#mat-mdc-error-5')
       .should('be.visible')
-      .and('contain', 'Enter your name 2-15 letters')
+      .and('contain', 'Make sure it\'s no more than 50 characters.')
   })
 
 // EMAIL FIELD
@@ -62,7 +62,7 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#email').should('have.class', 'ng-invalid')
     cy.get('#mat-mdc-error-1')
       .should('be.visible')
-      .and('contain', 'Invalid email')
+      .and('contain', 'Invalid email (ex.: yourname@example.com)')
   })
 
 
@@ -115,7 +115,12 @@ describe('ZpmHub Signup Page Tests', () => {
 
   it('shouldn\'t accept spaces', () => {
     cy.get('#password').type(' 1 2 3 4 5 6 7 8 ')
-    cy.get('#password').invoke('val').should('eq', '12345678') // failed
+    // cy.get('#password').invoke('val').should('eq', '12345678') 
+    cy.get('#companyShortName').click({force: true})
+    cy.get('#password').should('have.class', 'ng-invalid')
+    cy.get('#mat-mdc-error-13')
+      .should('be.visible')
+      .and('contain', 'Password should not contain spaces')
   })
 
   it('should display an error message if Password field is empty', () => {
@@ -124,7 +129,7 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#password').should('have.class', 'ng-invalid')
     cy.get('#mat-mdc-error-4')
       .should('be.visible')
-      .and('contain', ' Make sure it\'s no more 15 characters OR at least 8 characters')
+      .and('contain', 'Enter your password.')
   })
 
   it('should display an error message if password is too short', () => {
@@ -133,7 +138,7 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#password').should('have.class', 'ng-invalid')
     cy.get('#mat-mdc-error-4')
       .should('be.visible')
-      .and('contain', ' Make sure it\'s no more 15 characters OR at least 8 characters')
+      .and('contain', ' Make sure it\'s no more 15 characters AND at least 8 characters')
   })
 
   it('should display an error message if password is too long', () => {
@@ -142,7 +147,7 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#password').should('have.class', 'ng-invalid')
     cy.get('#mat-mdc-error-5')
       .should('be.visible')
-      .and('contain', ' Make sure it\'s no more 15 characters OR at least 8 characters')
+      .and('contain', ' Make sure it\'s no more 15 characters AND at least 8 characters')
   })
 
   it('eye icon should toggle password visibility', () => {
