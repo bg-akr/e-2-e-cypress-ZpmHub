@@ -50,7 +50,6 @@ describe('ZpmHub Signup Page Tests', () => {
       .and('contain', 'Enter your name 2-15 letters')
   })
 
-
 // EMAIL FIELD
 
   it('email field should be required', () => {
