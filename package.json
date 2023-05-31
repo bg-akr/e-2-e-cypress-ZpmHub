@@ -1,0 +1,23 @@
+{
+  "name": "e-2-e-cypress-zpmhub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bg-akr/e-2-e-cypress-ZpmHub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bg-akr/e-2-e-cypress-ZpmHub/issues"
+  },
+  "homepage": "https://github.com/bg-akr/e-2-e-cypress-ZpmHub#readme",
+  "devDependencies": {
+    "cypress": "^12.13.0"
+  }
+}
