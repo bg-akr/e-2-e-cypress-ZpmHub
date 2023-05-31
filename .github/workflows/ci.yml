@@ -11,7 +11,7 @@ jobs:
           browser: chrome
       - uses: actions/upload-artifact@v3
         # add the line below to store screenshots only on failures
-        # if: failure()
+        if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
