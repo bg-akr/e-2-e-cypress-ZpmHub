@@ -1,5 +1,56 @@
 /// <reference types="Cypress" />
 
+describe('ZpmHub official webpage', () => {
+  beforeEach(() => {
+    cy.visit('https://dev.zpmhub.com/home')
+  })
+
+  it('should navigate to the Home page when clicking on the Home menu tab', () => {
+    cy.get('.header-box-nav > .ng-star-inserted > .mat-mdc-nav-list > :nth-child(2)').contains('Features').click()
+    const expectedAddress = 'https://dev.zpmhub.com/home';
+    cy.url().should('eq', 'https://dev.zpmhub.com/features');
+    cy.contains('We are working on this!')
+    cy.get('.header-box-nav > .ng-star-inserted > .mat-mdc-nav-list > :nth-child(1)').contains('Home').click()
+    cy.url().should('eq', expectedAddress);
+  })
+
+  it('should navigate to the Features page when clicking on the Features menu tab', () => {
+    cy.get('.header-box-nav > .ng-star-inserted > .mat-mdc-nav-list > :nth-child(2)').contains('Features').click();
+    cy.url().should('eq', 'https://dev.zpmhub.com/features');
+    cy.contains('We are working on this!')
+  })
+
+  it('should navigate to the GitHub repo when clicking on the Documentation menu tab', () => {
+    cy.get('.header-box-nav > .ng-star-inserted > .mat-mdc-nav-list > :nth-child(3)')
+      .should('have.attr', 'href')
+      .should('contain', 'https://github.com/banksiaglobal/zpmhub')
+  })
+
+  it('should navigate to the Pricing page when clicking on the Pricing menu tab', () => {
+    cy.get('.header-box-nav > .ng-star-inserted > .mat-mdc-nav-list > :nth-child(4)').contains('Pricing').click();
+    cy.url().should('eq', 'https://dev.zpmhub.com/price');
+  })
+
+  it('should navigate to the About page when clicking on the About menu tab', () => {
+    cy.get('.header-box-nav > .ng-star-inserted > .mat-mdc-nav-list > :nth-child(5)').contains('About').click();
+    cy.url().should('eq', 'https://dev.zpmhub.com/about');
+  })
+
+  it('should navigate to the Registration page when clicking the Sign up button', () => {
+    cy.get('.header-box > app-auth-registre-btns.ng-star-inserted > .mat-mdc-nav-list > :nth-child(1) > .mdc-button').contains('Sign up').click();
+    cy.url().should('eq', 'https://dev.zpmhub.com/signup');
+    cy.get('#registrationForm').should('be.visible')
+  })
+
+  it('should navigate to the Registration page when clicking the Sign up button', () => {
+    cy.get('.header-box > app-auth-registre-btns.ng-star-inserted > .mat-mdc-nav-list > :nth-child(2) > .mdc-button').contains('Sign in').click();
+    cy.url().should('eq', 'https://dev.zpmhub.com/signin');
+    cy.get('#authForm').should('be.visible')
+  })
+})
+
+
+
 describe('ZpmHub Signup Page Tests', () => {
   beforeEach(() => {
     cy.visit('https://dev.zpmhub.com/signup')
