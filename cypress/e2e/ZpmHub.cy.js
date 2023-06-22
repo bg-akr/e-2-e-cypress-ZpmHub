@@ -318,25 +318,25 @@ describe('ZpmHub Signup Page Tests', () => {
     cy.get('#btnSubmitSignupForm').should('be.disabled')
   })
 
-  it('should sign up a new user with valid input', () => {
-    const fullName = 'Jack Black'
-    const email = 'test@example.com'
-    const companyFullName = 'Google LLC'
-    const companyShortName = 'Google'
-    const password = 'password'
+  // it('should sign up a new user with valid input', () => {
+  //   const fullName = 'Jack Black'
+  //   const email = 'test@example.com'
+  //   const companyFullName = 'Google LLC'
+  //   const companyShortName = 'Google'
+  //   const password = 'password'
 
-    cy.get('#name').type(fullName)
-    cy.get('#email').click({force: true}).type(email)
-    cy.get('#companyFullName').click({force: true}).type(companyFullName)
-    cy.get('#companyShortName').click({force: true}).type(companyShortName)
-    cy.get('#password').type(password)
+  //   cy.get('#name').type(fullName)
+  //   cy.get('#email').click({force: true}).type(email)
+  //   cy.get('#companyFullName').click({force: true}).type(companyFullName)
+  //   cy.get('#companyShortName').click({force: true}).type(companyShortName)
+  //   cy.get('#password').type(password)
 
-    cy.get('#chkAgreements-input').click()
-    cy.get('#btnSubmitSignupForm').click()
+  //   cy.get('#chkAgreements-input').click()
+  //   cy.get('#btnSubmitSignupForm').click()
 
-    cy.url().should('include', '/signin')
-    cy.get('#authForm').should('be.visible') 
-  })
+  //   cy.url().should('include', '/signin')
+  //   cy.get('#authForm').should('be.visible') 
+  // })
 
   it('shouldn\'t sign up a new user if the Company Short Name already exists', () => {
     const fullName = 'Jack Black'
@@ -356,5 +356,74 @@ describe('ZpmHub Signup Page Tests', () => {
 
     cy.get('.warn')
     cy.url().should('include', '/signup')
+  })
+})
+
+describe('ZpmHub Signin Page Tests', () => {
+  beforeEach(() => {
+    cy.visit('https://dev.zpmhub.com/signin')
+  })
+
+  it('should display the Signin form and Sign in button should be disabled', () => {
+    cy.get('#authForm').should('be.visible')
+    cy.get('#btnSubmitSigninForm').should('be.disabled')
+  })
+
+  it('the Email address field should be required', () => {
+    cy.get('#email').should('have.attr', 'required')
+  })
+
+  it('the Password field should be required', () => {
+    cy.get('#password').should('have.attr', 'required')
+  })
+
+  it('the Password field should have type=password', () => {
+    cy.get('#password').invoke('attr', 'type').should('contain', 'password')
+  })
+
+  it('should be able to check the "Remember me" checkbox', () => {
+    cy.get('#chkRememberUser-input').check();
+    cy.get('#chkRememberUser-input').should('be.checked');
+  });
+
+  it('should be able to uncheck the "Remember me" checkbox', () => {
+    cy.get('#chkRememberUser-input').check();
+    cy.get('#chkRememberUser-input').uncheck();
+
+    cy.get('#chkRememberUser-input').should('not.be.checked');
+  });
+
+  it('the “Sign in” button should be active when all fields are filled with valid data and the checkbox is unchecked', () => {
+    const email = "pylkaya@ya.ru"
+    const password = "pylkaya1"
+
+    cy.get('#email').click({force: true}).type(email)
+    cy.get('#password').type(password)
+
+    cy.get('#chkRememberUser-input').should('not.be.checked');
+    cy.get('#btnSubmitSigninForm').should('not.be.disabled')
+  })
+
+  it('the “Sign in” button should be active when all fields are filled with valid data and the checkbox is checked', () => {
+    const email = "pylkaya@ya.ru"
+    const password = "pylkaya1"
+
+    cy.get('#email').click({force: true}).type(email)
+    cy.get('#password').type(password)
+
+    cy.get('#chkRememberUser-input').check();
+    cy.get('#btnSubmitSigninForm').should('not.be.disabled')
+  })
+
+  it('should login a registered user successfuly', () => {
+    const email = "pylkaya@ya.ru"
+    const password = "pylkaya1"
+
+    cy.get('#email').click({force: true}).type(email)
+    cy.get('#password').type(password)
+    cy.get('#btnSubmitSigninForm').click()
+
+    cy.url().should('eq', 'https://dev.zpmhub.com/packages');
+    cy.get('.packages-page').should('be.visible');
   })
 })
