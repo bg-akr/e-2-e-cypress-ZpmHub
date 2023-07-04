@@ -23,3 +23,9 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('login', () => {
+    cy.visit('https://dev.zpmhub.com/signin');
+    cy.get('#email').click({force: true}).type('pylkaya@ya.ru')
+    cy.get('#password').type('pylkaya1')
+    cy.get('#btnSubmitSigninForm').click()
+})

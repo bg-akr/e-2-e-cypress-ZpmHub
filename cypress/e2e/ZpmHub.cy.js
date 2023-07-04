@@ -427,3 +427,31 @@ describe('ZpmHub Signin Page Tests', () => {
     cy.get('.packages-page').should('be.visible');
   })
 })
+
+describe('ZpmHub user account', () => {
+  beforeEach(() => {
+    cy.visit('https://dev.zpmhub.com/signin')
+    cy.login()
+  })
+
+  it('should navigate to the right page clicking menu tabs', () => {
+    cy.url().should('include', '/packages');
+    cy.get('.ng-star-inserted > .mat-mdc-nav-list > :nth-child(2) > .mdc-button__label > span').contains('Companies').click();
+    cy.url().should('include', '/companies');
+    cy.get('.ng-star-inserted > .mat-mdc-nav-list > :nth-child(3) > .mdc-button__label > span').contains('Users').click();
+    cy.url().should('include', '/users');
+    cy.get('.ng-star-inserted > .mat-mdc-nav-list > :nth-child(4) > .mdc-button__label > span').contains('Environments').click();
+    cy.url().should('include', '/environment');
+    cy.get('.ng-star-inserted > .mat-mdc-nav-list > :nth-child(5) > .mdc-button__label > span').contains('Audit').click();
+    cy.url().should('include', '/audit');
+    cy.get('.ng-star-inserted > .mat-mdc-nav-list > :nth-child(1) > .mdc-button__label > span').contains('Packages').click();
+    cy.url().should('include', '/packages');
+  })
+
+  it('should sign the user out', () => {
+    cy.get('.header-box > app-user-settings-menu.ng-star-inserted > app-user-settings-view > .mat-mdc-menu-trigger > .mat-mdc-button-touch-target').click();
+    cy.get('.mat-mdc-menu-panel').find('span').contains('Signed in as');
+    cy.get('.mat-mdc-menu-panel').find('span').contains('Sign out').click();
+    cy.url().should('include', '/signin');
+  })
+})

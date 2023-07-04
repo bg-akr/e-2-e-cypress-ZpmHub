@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/bg-akr/e-2-e-cypress-ZpmHub#readme",
   "devDependencies": {
-    "cypress": "^12.13.0"
+    "cypress": "^12.16.0"
   }
 }
